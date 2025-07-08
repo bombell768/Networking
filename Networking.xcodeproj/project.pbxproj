@@ -8,6 +8,7 @@
 
 /* Begin PBXFileReference section */
 		A72FD4C92E1C3A5F00124BEE /* Networking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Networking.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A72FD4E32E1C3B1700124BEE /* Task1-URLRequest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Task1-URLRequest.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,6 +46,7 @@
 		A72FD4C02E1C3A5F00124BEE = {
 			isa = PBXGroup;
 			children = (
+				A72FD4E32E1C3B1700124BEE /* Task1-URLRequest.playground */,
 				A72FD4CB2E1C3A5F00124BEE /* Networking */,
 				A72FD4CA2E1C3A5F00124BEE /* Products */,
 			);
