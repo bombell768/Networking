@@ -8,10 +8,15 @@
 import Foundation
 
 final class TVShowViewModel {
+    private let service: TMDBServiceProtocol
     private(set) var shows: [TVShow] = []
     
+    init(service: TMDBServiceProtocol) {
+        self.service = service
+    }
+    
     func fetchTVShows(completion: @escaping (TMDBError?) -> Void) {
-        TMDBService.shared.fetchTopRatedTVShows { [weak self] result in
+        service.fetchTopRatedTVShows { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let shows):

@@ -23,8 +23,11 @@ enum TMDBError: Error {
     }
 }
 
-final class TMDBService {
-    static let shared = TMDBService()
+protocol TMDBServiceProtocol {
+    func fetchTopRatedTVShows(completion: @escaping (Result<[TVShow], TMDBError>) -> Void)
+}
+
+final class TMDBService: TMDBServiceProtocol {
     private let baseURL = "https://api.themoviedb.org/3/tv/top_rated"
     private let apiKey = "7481bbcf1fcb56bd957cfe9af78205f3"
     

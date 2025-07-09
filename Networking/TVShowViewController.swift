@@ -8,9 +8,18 @@
 import UIKit
 
 final class TVShowViewController: UIViewController {
-    private let viewModel = TVShowViewModel()
+    private let viewModel: TVShowViewModel
     private let tableView = UITableView()
 
+    init(viewModel: TVShowViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Top Rated Shows"
