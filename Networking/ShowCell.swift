@@ -10,6 +10,10 @@ import UIKit
 final class ShowCell: UITableViewCell {
     private let showImageView = UIImageView()
     private let titleLabel = UILabel()
+    private let firstAirDateLabel = UILabel()
+    private let ratingLabel = UILabel()
+    private let countriesLabel = UILabel()
+    private let popularityLabel = UILabel()
     private let overviewLabel = UILabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -24,24 +28,34 @@ final class ShowCell: UITableViewCell {
         showImageView.clipsToBounds = true
         titleLabel.font = .boldSystemFont(ofSize: 16)
         overviewLabel.font = .systemFont(ofSize: 12)
-        overviewLabel.numberOfLines = 3
+        overviewLabel.numberOfLines = 0
+        
+        let labelsBelowTitle = [firstAirDateLabel, ratingLabel, countriesLabel, popularityLabel]
+        for label in labelsBelowTitle {
+            label.font = .systemFont(ofSize: 12)
+        }
+        
+        let labelsStackView = UIStackView(arrangedSubviews: [titleLabel] + labelsBelowTitle)
+        labelsStackView.axis = .vertical
+        labelsStackView.spacing = 4
+        
+        let horizontalStackView = UIStackView(arrangedSubviews: [showImageView, labelsStackView])
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.alignment = .top
+        horizontalStackView.spacing = 12
+        
 
-        let stack = UIStackView(arrangedSubviews: [titleLabel, overviewLabel])
-        stack.axis = .vertical
-        stack.spacing = 4
-
-        let container = UIStackView(arrangedSubviews: [showImageView, stack])
+        let container = UIStackView(arrangedSubviews: [horizontalStackView, overviewLabel])
         container.spacing = 12
-        container.alignment = .top
+        container.axis = .vertical
         contentView.addSubview(container)
         container.translatesAutoresizingMaskIntoConstraints = false
-        showImageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            showImageView.widthAnchor.constraint(equalToConstant: 80),
-            showImageView.heightAnchor.constraint(equalToConstant: 120),
+            showImageView.widthAnchor.constraint(equalToConstant: 100),
+            showImageView.heightAnchor.constraint(equalToConstant: 140),
             container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
@@ -49,6 +63,10 @@ final class ShowCell: UITableViewCell {
 
     func configure(with show: TVShow, imageURL: URL?) {
         titleLabel.text = show.name
+        firstAirDateLabel.text = "First air date: \(show.firstAirDate)"
+        ratingLabel.text = "Rating: " + String(format: "%.1f", show.rating)
+        countriesLabel.text = "Countries: " + show.originCountry.joined(separator: ", ")
+        popularityLabel.text = "Popularity: " + String(format: "%.0f", show.popularity)
         overviewLabel.text = show.description
         if let url = imageURL {
             loadImage(from: url)
